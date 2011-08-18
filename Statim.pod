@@ -47,13 +47,10 @@ Text lines are always terminanted by \r\n.
 	{ 
 	  "collection1" : {
 		"fields" : {
-			"ts" : "timestamp",
+			"ts" : { "epoch" : "day" }
 			"foo" : "count",
 			"bar" : "enum"
 		},
-	   	"view" : {
-			"period" : "day"
-		}
 	  }
 	}
 
@@ -72,7 +69,11 @@ response, which will indicate success or failure.
 
 =head3 add
 
-# add [collection-key] ["foo","bar","jaz"] 
+# add [collection-key] [parameters]
+
+	# example
+	add collection1 "1234567890" 1 "jaz"
+	OK
 
 =head2 Retrieval commands
 
@@ -81,7 +82,11 @@ command line, which includes the collection key and the type of view ; after tha
 the server finds it sends to the cliente one response line with information about
 the item.
 
-=head3 get [collection-key] [type-view]
+=head3 get [collection-key] [enum|ts] 
+
+	# example
+	get collection bar:jaz ts:1234567880-1234567890
+	OK 1
 
 =head2 Other commands
 
