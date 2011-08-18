@@ -1,0 +1,113 @@
+=encoding utf-8
+
+=head1 NAME
+
+Statim - Protocol Specification.
+
+=head1 ABSTRACT
+
+This document specifies a standart interface to store and get information about
+stats in a statim-server, and how to send the requests from a statim-client. The main 
+reason of this interface is to offer a design to promote the portability and reduce 
+the effort to make web applications to manage stats of your data.
+
+=head1 TERMINOLOGY
+
+=over 4
+
+=item Server
+
+(TODO)
+
+=item Client
+
+(TODO)
+
+=item Collection-key
+
+Is the name to identified the collection that represent a grouping of data.
+
+=cut
+
+=head1 SPECIFICATION
+
+Clients of statim communicate with server throught TCP connections,  clients connect to 
+that port, send commands to the server, read responses, and eventually close the connection.
+
+There is no need to send any command to end the session. A client may just close the
+connection at any moment it no longer needs it. 
+
+The just one kind of data sent in the statim protocol, text line, that are used for
+commands from clients and responses from server.
+
+Text lines are always terminanted by \r\n. 
+
+=head1 Server configuration
+
+	{ 
+	  "collection1" : {
+		"fields" : {
+			"ts" : "timestamp",
+			"foo" : "count",
+			"bar" : "enum"
+		},
+	   	"view" : {
+			"period" : "day"
+		}
+	  }
+	}
+
+=head1 Commands
+
+A command line always starts with the name of the command, followd by parameters
+(if any) delimited by ?????. Command names are lower-case and are case-sensitive.
+
+There are three types of commands.
+
+=head2 Storage commands
+
+Ask the server to store some data identified by a collection key. The client sends
+a command line, and then a data struct; after that the client expects one line of
+response, which will indicate success or failure.
+
+=head3 add
+
+# add [collection-key] ["foo","bar","jaz"] 
+
+=head2 Retrieval commands
+
+Ask the server to retrieve data corresponding a collection key. The client sends a 
+command line, which includes the collection key and the type of view ; after that
+the server finds it sends to the cliente one response line with information about
+the item.
+
+=head3 get [collection-key] [type-view]
+
+=head2 Other commands
+
+=head3 version
+
+=head3 quit
+
+=head1 Error strings
+
+Each command sent by a client may be answered with an error string from the server.
+These erro strings come in three types:
+
+=over 4
+
+=item "ERROR\r\n"
+  
+means the client sent a nonexistente command name.
+
+=item "CLIENT_ERROR <error>\r\n"
+
+means some sort of client error in the input line, i.e. the input doesn't conform to
+the protocol in some way. <error> is a human-readable error string.
+
+=item "SERVER_ERROR <error>\r\n"
+
+means some sort of server error preventes the server from carrying out the command.
+<error> is a human-readable error string.
+
+   
