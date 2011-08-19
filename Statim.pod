@@ -72,7 +72,7 @@ response, which will indicate success or failure.
 # add [collection-key] [parameters]
 
 	# example
-	add collection1 "1234567890" 1 "jaz"
+	add collection1 ts:1234567890 foo:1 bar:jaz
 	OK
 
 =head2 Retrieval commands
