@@ -27,7 +27,7 @@ the effort to make web applications to manage stats of your data.
 
 Is the name to identified the collection that represent a grouping of data.
 
-=cut
+=back
 
 =head1 SPECIFICATION
 
@@ -115,4 +115,4 @@ the protocol in some way. <error> is a human-readable error string.
 means some sort of server error preventes the server from carrying out the command.
 <error> is a human-readable error string.
 
-   
+=cut 
