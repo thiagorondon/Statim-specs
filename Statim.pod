@@ -57,7 +57,7 @@ The server have to be pre-configured schema.
 =head1 Commands
 
 A command line always starts with the name of the command, followd by parameters
-(if any) delimited by ':'. Command names are lower-case and are case-sensitive.
+(if any) delimited by ':' (colon). Command names are lower-case and are case-sensitive.
 
 There are three types of commands.
 
