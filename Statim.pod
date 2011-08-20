@@ -15,17 +15,13 @@ the effort to make web applications to manage stats of your data.
 
 =over 4
 
-=item Server
-
-(TODO)
-
-=item Client
-
-(TODO)
-
 =item Collection-key
 
 Is the name to identified the collection that represent a grouping of data.
+
+=item Schema
+
+(TODO)
 
 =back
 
@@ -44,12 +40,16 @@ Text lines are always terminanted by \r\n.
 
 =head1 Server configuration
 
+The server have to be pre-configured schema.
+
+
 	{ 
 	  "collection1" : {
 		"fields" : {
 			"ts" : { "epoch" : "day" }
 			"foo" : "count",
-			"bar" : "enum"
+			"bar" : "enum",
+            "jaz" : "enum"
 		},
 	  }
 	}
@@ -57,7 +57,7 @@ Text lines are always terminanted by \r\n.
 =head1 Commands
 
 A command line always starts with the name of the command, followd by parameters
-(if any) delimited by ?????. Command names are lower-case and are case-sensitive.
+(if any) delimited by ':'. Command names are lower-case and are case-sensitive.
 
 There are three types of commands.
 
@@ -85,14 +85,25 @@ the item.
 =head3 get [collection-key] [enum|ts] 
 
 	# example
-	get collection bar:jaz ts:1234567880-1234567890
+	get collection bar foo
 	OK 1
+
+    get collection bar ts:123456780-1234567890 foo
+    OK 1
 
 =head2 Other commands
 
+Commands with no arguments.
+
 =head3 version
 
+Version string of this server.
+
 =head3 quit
+
+Upon receiving this command, the server closes the connection. However, the
+client may also simply close the connection when it no longer needs it,
+without issuing this command.
 
 =head1 Error strings
 
@@ -114,5 +125,16 @@ the protocol in some way. <error> is a human-readable error string.
 
 means some sort of server error preventes the server from carrying out the command.
 <error> is a human-readable error string.
+
+
+=head1 THANKS
+
+=over 4
+
+=item memcached
+
+=item redis
+
+=back
 
 =cut 
