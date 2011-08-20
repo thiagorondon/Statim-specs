@@ -129,6 +129,7 @@ the protocol in some way. <error> is a human-readable error string.
 means some sort of server error preventes the server from carrying out the command.
 <error> is a human-readable error string.
 
+=back
 
 =head1 THANKS
 
